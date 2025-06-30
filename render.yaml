@@ -1,12 +1,21 @@
-# render.yaml
+# render.yaml - 最终修复版 v2
 
 services:
   - type: web
     name: fatigue-detector-a191610
     env: python
-    pythonVersion: "3.10"
-    plan: free
+    plan: free # 确保使用的是免费套餐
+
+    # --- 关键修改在这里 ---
+    # 通过环境变量来指定Python版本
+    # 建议使用一个具体、稳定的版本号，例如 "3.10.13"
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.10.13"
+
+    # 构建和启动命令保持不变
     buildCommand: "pip install --upgrade pip setuptools wheel && pip install -r requirements.txt"
     startCommand: "gunicorn backend_server:app"
+
     autoDeploy: true
     healthCheckPath: /
