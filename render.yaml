@@ -1,21 +1,19 @@
-# render.yaml - Render 部署说明书
+# render.yaml - 修正版
 
 services:
   # 定义一个Web服务
   - type: web
-    # 服务的唯一名称 (可以自定义)
+    # 服务的唯一名称
     name: fatigue-detector-a191610
     # 运行环境
     env: python
-    # 套餐类型 (关键！)
+    # 套餐类型
     plan: free
     # 构建命令 (安装依赖)
     buildCommand: "pip install -r requirements.txt"
     # 启动命令 (用Gunicorn启动您的Flask应用)
     startCommand: "gunicorn backend_server:app"
-    # 启用Git LFS来拉取大文件
-    gitLfs: true
     # 自动部署设置
     autoDeploy: true
-    # 健康检查路径 (Render会访问这个路径来确认服务是否正常启动)
+    # 健康检查路径
     healthCheckPath: /
