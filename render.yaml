@@ -1,19 +1,15 @@
-# render.yaml - 修正版
+# render.yaml - 最终修正版
 
 services:
-  # 定义一个Web服务
   - type: web
-    # 服务的唯一名称
     name: fatigue-detector-a191610
-    # 运行环境
     env: python
-    # 套餐类型
     plan: free
-    # 构建命令 (安装依赖)
-    buildCommand: "pip install -r requirements.txt"
-    # 启动命令 (用Gunicorn启动您的Flask应用)
+
+    # --- 关键修改在这里 ---
+    # 在安装项目依赖前，先升级核心打包工具
+    buildCommand: "pip install --upgrade pip setuptools wheel && pip install -r requirements.txt"
+
     startCommand: "gunicorn backend_server:app"
-    # 自动部署设置
     autoDeploy: true
-    # 健康检查路径
     healthCheckPath: /
