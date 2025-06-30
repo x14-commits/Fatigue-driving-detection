@@ -1,15 +1,12 @@
-# render.yaml - 最终修正版
+# render.yaml
 
 services:
   - type: web
     name: fatigue-detector-a191610
     env: python
+    pythonVersion: "3.10"
     plan: free
-
-    # --- 关键修改在这里 ---
-    # 在安装项目依赖前，先升级核心打包工具
     buildCommand: "pip install --upgrade pip setuptools wheel && pip install -r requirements.txt"
-
     startCommand: "gunicorn backend_server:app"
     autoDeploy: true
     healthCheckPath: /
